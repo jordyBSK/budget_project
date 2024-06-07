@@ -192,7 +192,7 @@ def genre_update_wtf():
             print(f"Utilisateur mis à jour !!")
 
             # Redirection après mise à jour
-            return redirect(url_for('genres_afficher', order_by="ASC", id_genre_sel=0))
+            return redirect(url_for('genres_afficher', order_by="ASC", id_utilisateur_sel=0))
 
         elif request.method == "GET":
             # Opération sur la BD pour récupérer toutes les informations de l'utilisateur
