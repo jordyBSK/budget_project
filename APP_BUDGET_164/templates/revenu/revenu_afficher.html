@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %} Afficher les Revenu {% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="col-md-12">
+            <table class="table table-responsive-sm">
+                {% if data %}
+                    <thead>
+                    <tr>
+                        <th class="">
+                            Id
+                        </th>
+                        <th class="">
+                            nom destinataire
+                        </th>
+                        <th class="">
+                            prénom destinataire
+                        </th>
+                        <th class="">
+                            compte
+                        </th>
+                        <th class="">
+                            montant
+                        </th>
+                        <th class="">
+                            date de revenu
+                        </th>
+                    </tr>
+                    </thead>
+                {% endif %}
+                {% for row in data %}
+                    <tbody>
+                    <tr>
+                        <th class="align-middle">
+                            {{ row.id_revenu }}
+                        </th>
+                        <th class="align-middle">
+                            {{ row.nom_utilisateur }}
+                        </th>
+                        <th class="align-middle">
+                            {{ row.prenom_utilisateur }}
+                        </th>
+                        <th class="align-middle">
+                            {{ row.nom_compte }}
+                        </th>
+                        <th class="align-middle">
+                            {{ row.montant_revenu }}
+                        </th>
+                        <th class="align-middle">
+                            {{ row.date_revenu }}
+                        </th>
+                        <th class="align-middle">
+                            <a class="btn btn-primary" href="{{ url_for('revenu_ajouter_wtf') }}" role="button">Ajouter</a>
+                        </th>
+                        <th class="align-middle">
+                            <a class="btn btn-warning"
+                               href="{{ url_for('update_revenu_selected', id_film_btn_edit_html=row.id_revenu) }}" role="button">Edit</a>
+                        </th>
+                        <th class="align-middle">
+                            <a class="btn btn-danger"
+                               href="{{ url_for('revenu_delete_wtf', id_revenu_btn_delete_html=row.id_revenu ) }}"
+                               role="button">Delete</a>
+                        </th>
+                    </tr>
+                    </tbody>
+                {% else %}
+                    <tbody>
+                    <tr>
+                        <td>
+                            Aucun revenue.
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" href="{{ url_for('revenu_ajouter_wtf') }}"
+                               role="button">Add</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+{% endblock %}

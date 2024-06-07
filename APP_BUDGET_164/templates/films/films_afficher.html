@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %} Afficher dépense {% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="col-md-12">
+            <table class="table table-responsive-sm">
+                {% if data %}
+                    <thead>
+                    <tr>
+                        <th class="">
+                            Id
+                        </th>
+                        <th class="">
+                            nom
+                        </th>
+                        <th class="">
+                            prénom
+                        </th>
+                        <th class="">
+                            catégorie
+                        </th>
+                        <th class="">
+                            compte
+                        </th>
+                        <th class="">
+                            montant
+                        </th>
+                        <th class="">
+                            date de dépense
+                        </th>
+                        <th class="">
+                            lieu
+                        </th>
+                    </tr>
+                    </thead>
+                {% endif %}
+                {% for row in data %}
+                    <tbody>
+                    <tr>
+                        <th class="align-middle">
+                            {{ row.id_depense }}
+                        </th>
+                        <th class="align-middle">
+                            {{ row.nom_utilisateur }}
+                        </th>
+                        <th class="align-middle">
+                            {{ row.prenom_utilisateur }}
+                        </th>
+                        <th class="align-middle">
+                            {{ row.nom_categorie }}
+                        </th>
+                        <th class="align-middle">
+                            {{ row.nom_compte }}
+                        </th>
+                        <th class="align-middle">
+                            {{ row.Montant_depense }}
+                        </th>
+                        <th class="align-middle">
+                            {{ row.date_depense }}
+                        </th>
+                        <th class="align-middle">
+                            {{ row.lieu_depense }}
+                        </th>
+                    </tr>
+                    </tbody>
+                {% else %}
+                    <tbody>
+                    <tr>
+                        <td>
+                            Aucun film.
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" href="{{ url_for('avertissement_sympa_pour_geeks') }}"
+                               role="button">Add</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+{% endblock %}

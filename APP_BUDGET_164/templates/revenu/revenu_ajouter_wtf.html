@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %} Ajouter un GENRE (WTF) {% endblock %}
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<p>
+				Ajouter une nouvelle personne
+			</p>
+			<form action="" method="POST" novalidate>
+				<!-- Protection contre les attaques Cross-Site Request Forgery (CSRF) -->
+				{{ form.hidden_tag() }}
+				<div class="form-group">
+					<p>
+                        {{ form.id_utilisateur.label }}<br>
+                        {{ form.id_utilisateur(size=32) }}<br>
+                        {{ form.id_compte.label }}<br>
+                        {{ form.id_compte(size=32) }}<br>
+                        {{ form.montant_revenu.label }}<br>
+                        {{ form.montant_revenu(size=32) }}<br>
+                        {{ form.date_revenu.label }}<br>
+                        {{ form.date_revenu(size=32) }}<br>
+
+						{% for error in form.montant_revenu.errors %}
+							<span style="color: red;">[{{ error }}]</span>
+						{% endfor %}
+					</p>
+				</div>
+				{{ form.submit(class="btn btn-primary") }}
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}
+

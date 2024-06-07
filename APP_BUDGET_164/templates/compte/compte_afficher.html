@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %} Afficher les compte {% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="col-md-12">
+            <table class="table table-responsive-sm">
+                {% if data %}
+                    <thead>
+                    <tr>
+                        <th class="">
+                            Id
+                        </th>
+                        <th class="">
+                            nom destinataire
+                        </th>
+                        <th class="">
+                            prénom destinataire
+                        </th>
+                        <th class="">
+                            compte
+                        </th>
+                    </tr>
+                    </thead>
+                {% endif %}
+                {% for row in data %}
+                    <tbody>
+                    <tr>
+                        <th class="align-middle">
+                            {{ row.id_compte }}
+                        </th>
+                        <th class="align-middle">
+                            {{ row.nom_utilisateur }}
+                        </th>
+                        <th class="align-middle">
+                            {{ row.prenom_utilisateur }}
+                        </th>
+                        <th class="align-middle">
+                            {{ row.nom_compte }}
+                        </th>
+                        <th class="align-middle">
+                            <a class="btn btn-primary" href="{{ url_for('compte_ajouter_wtf') }}" role="button">Ajouter</a>
+                        </th>
+                        <th class="align-middle">
+                            <a class="btn btn-warning"
+                               href="{{ url_for('compte_update_wtf', id_film_btn_edit_html=row.id_compte) }}" role="button">Edit</a>
+                        </th>
+                        <th class="align-middle">
+                            <a class="btn btn-danger"
+                               href="{{ url_for('compte_delete_wtf', id_compte_btn_delete_html=row.id_compte ) }}"
+                               role="button">Delete</a>
+                        </th>
+                    </tr>
+                    </tbody>
+                {% else %}
+                    <tbody>
+                    <tr>
+                        <td>
+                            Aucun comptee.
+                        </td>
+                        <td>
+                            <a class="btn btn-primary" href="{{ url_for('compte_ajouter_wtf') }}"
+                               role="button">Add</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+{% endblock %}
