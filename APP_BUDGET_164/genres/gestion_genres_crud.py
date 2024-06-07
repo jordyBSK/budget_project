@@ -123,7 +123,7 @@ def genres_ajouter_wtf():
 
                 flash(f"Données insérées !!", "success")
 
-                return redirect(url_for('genres_afficher', order_by='DESC', id_utilisateur_sel=0))
+                return redirect(url_for('genres_afficher', order_by='ASC', id_utilisateur_sel=0))
 
         except Exception as Exception_genres_ajouter_wtf:
             raise ExceptionGenresAjouterWtf(
