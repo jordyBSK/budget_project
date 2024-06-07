@@ -312,7 +312,7 @@ def update_revenu_selected():
 
     # Après cette mise à jour de la table intermédiaire "t_genre_revenu",
     # on affiche les revenus et le(urs) genre(s) associé(s).
-    return redirect(url_for('revenu_afficher', id_revenu_sel=id_revenu_selected))
+    return redirect(url_for('revenu_afficher', id_revenu_sel=id_film_btn_edit_html))
 
 
 """

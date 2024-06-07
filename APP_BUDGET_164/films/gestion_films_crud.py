@@ -27,35 +27,51 @@ Remarque :  Dans le champ "categorie_depense_update" du formulaire "films/films_
             On ne doit pas accepter un champ vide.
 """
 
-
 @app.route("/film_add", methods=['GET', 'POST'])
 def film_add_wtf():
-    # Objet formulaire pour AJOUTER un film
-    form_add_film = FormWTFAddFilm()
+    # Objet formulaire pour AJOUTER une dépense
+    form = FormWTFAddFilm()
     if request.method == "POST":
         try:
-            if form_add_film.validate_on_submit():
-                nom_film_add = form_add_film.nom_film_add_wtf.data
+            if form.validate_on_submit():
 
-                valeurs_insertion_dictionnaire = {"value_nom_film": nom_film_add}
-                print("valeurs_insertion_dictionnaire ", valeurs_insertion_dictionnaire)
+                # Récupérer les données du formulaire
+                montant_depense = form.montant_depense.data.lower()
+                date_depense = form.date_depense.data.lower()
+                id_utilisateur = form.id_utilisateur.data.lower()
+                id_compte = form.id_compte.data.lower()
+                id_categorie = form.id_categorie.data.lower()
+                description_depense = form.description_depense.data.lower()
+                lieu_depense = form.lieu_depense.data.lower()
 
-                strsql_insert_depense = """INSERT INTO t_depense (id_depense,nom_film) VALUES (NULL,%(value_nom_film)s) """
+                # Préparer le dictionnaire des valeurs à insérer
+                valeurs_insertion_dictionnaire = {
+                    "id_utilisateur": id_utilisateur,
+                    "id_categorie": id_categorie,
+                    "id_compte": id_compte,
+                    "montant_depense": montant_depense,
+                    "date_depense": date_depense,
+                    "description_depense": description_depense,
+                    "lieu_depense": lieu_depense
+                }
+
+                strsql_insert_depense = """INSERT INTO t_depense (id_utilisateur, id_categorie, id_compte, Montant_depense, date_depense, description_depense, lieu_depense)
+VALUES (%(id_utilisateur)s, %(id_categorie)s, %(id_compte)s, %(montant_depense)s, %(date_depense)s, %(description_depense)s, %(lieu_depense)s);"""
+
+                # Utilisation d'une connexion à la base de données
                 with DBconnection() as mconn_bd:
                     mconn_bd.execute(strsql_insert_depense, valeurs_insertion_dictionnaire)
 
-                flash(f"Données insérées !!", "success")
-                print(f"Données insérées !!")
+                flash("Dépense ajoutée avec succès !", "success")
+                return redirect(url_for('depense_afficher', order_by='DESC', id_depense_sel=0))
 
-                # Pour afficher et constater l'insertion du nouveau film (id_depense_sel=0 => afficher tous les films)
-                return redirect(url_for('films_genres_afficher', id_depense_sel=0))
+        except Exception as Exception_film_ajouter_wtf:
+            raise ExceptionGenresAjouterWtf(
+                f"fichier : {Path(__file__).name} ; {film_add_wtf.__name__} ; {Exception_film_ajouter_wtf}"
+            )
 
-        except Exception as Exception_genres_ajouter_wtf:
-            raise ExceptionGenresAjouterWtf(f"fichier : {Path(__file__).name}  ;  "
-                                            f"{film_add_wtf.__name__} ; "
-                                            f"{Exception_genres_ajouter_wtf}")
+    return render_template("films/film_add_wtf.html", form=form)
 
-    return render_template("films/film_add_wtf.html", form_add_film=form_add_film)
 
 
 """Editer(update) un film qui a été sélectionné dans le formulaire "films_genres_afficher.html"
