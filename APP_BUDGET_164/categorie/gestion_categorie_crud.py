@@ -104,7 +104,7 @@ def categorie_ajouter_wtf():
 
                 flash(f"Données insérées !!", "success")
 
-                return redirect(url_for('categorie_afficher', order_by='DESC', id_categorie_sel=0))
+                return redirect(url_for('categorie_afficher', order_by='ASC', id_categorie_sel=0))
 
         except Exception as Exception_categorie_ajouter_wtf:
             raise ExceptionGenresAjouterWtf(
